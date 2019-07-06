@@ -1,0 +1,14 @@
+<h2>Event Create Component</h2>
+<mat-card>
+  <mat-form-field>
+    <input matInput type="text" [(ngModel)]="enteredDescription" placeholder="Description">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" [(ngModel)]="enteredStartTime" placeholder="Start Time">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" [(ngModel)]="enteredEndTime" placeholder="End Time">
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="onAddEvent()">Save Event</button>
+</mat-card>
+
