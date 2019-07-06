@@ -1,4 +1,7 @@
-import { Component, EventEmitter, Output } from "@angular/core";
+import { Component, EventEmitter, Output } from '@angular/core';
+import { NgForm } from '@angular/forms';
+
+import { Event } from '../event.model';
 
 @Component({
   selector: 'app-event-create',
@@ -9,13 +12,16 @@ export class EventCreateComponent {
   enteredDescription = '';
   enteredStartTime = '';
   enteredEndTime = '';
-  @Output() eventCreated = new EventEmitter();
+  @Output() eventCreated = new EventEmitter<Event>();
 
-  onAddEvent() {
-    const event = {
-      description: this.enteredDescription,
-      startTime: this.enteredStartTime,
-      endTime: this.enteredEndTime
+  onAddEvent(form: NgForm) {
+    if (form.invalid) {
+      return;
+    }
+    const event: Event = {
+      description: form.value.description,
+      startTime: form.value.startTime,
+      endTime: form.value.endTime
     };
     this.eventCreated.emit(event);
   }
