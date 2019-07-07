@@ -15,7 +15,7 @@ export class EventListComponent implements OnInit, OnDestroy {
   constructor(public eventsService: EventsService) {}
 
   ngOnInit() {
-    this.events = this.eventsService.getEvents();
+    this.eventsService.getEvents();
     this.eventsSub = this.eventsService.getEventUpdateListener()
       .subscribe((events: Event[]) => {
         this.events = events;

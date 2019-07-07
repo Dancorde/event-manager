@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 
 import { Event } from './event.model';
@@ -8,8 +9,14 @@ export class EventsService {
   private events: Event[] = [];
   private eventsUpdated = new Subject<Event[]>();
 
+  constructor(private http: HttpClient) {}
+
   getEvents() {
-    return [...this.events];
+    this.http.get<{events: Event[]}>('http://localhost:3000/api/events')
+      .subscribe((eventData) => {
+        this.events = eventData.events;
+        this.eventsUpdated.next([...this.events]);
+      });
   }
 
   getEventUpdateListener() {
