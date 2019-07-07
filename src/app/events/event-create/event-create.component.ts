@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { Event } from '../event.model';
+import { EventsService } from '../events.service';
 
 @Component({
   selector: 'app-event-create',
@@ -12,7 +13,10 @@ export class EventCreateComponent {
   enteredDescription = '';
   enteredStartTime = '';
   enteredEndTime = '';
-  @Output() eventCreated = new EventEmitter<Event>();
+
+  constructor(public eventsService: EventsService) {
+
+  }
 
   onAddEvent(form: NgForm) {
     if (form.invalid) {
@@ -23,6 +27,7 @@ export class EventCreateComponent {
       startTime: form.value.startTime,
       endTime: form.value.endTime
     };
-    this.eventCreated.emit(event);
+    this.eventsService.addEvent(event);
+    form.resetForm();
   }
 }
