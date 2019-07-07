@@ -17,12 +17,17 @@ exports.getEventList = (req, res, next) => {
   ];
 
   res.status(200).json({
+    message: 'Events fetched successfully',
     events: events
   });
 }
 
 exports.postEvent = (req, res, next) => {
-
+  const event = req.body;
+  console.log(event);
+  res.status(201).json({
+    message: 'Event added successfully'
+  });
 }
 
 exports.getEvent = (req, res, next) => {

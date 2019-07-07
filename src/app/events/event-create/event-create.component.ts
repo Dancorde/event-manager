@@ -22,12 +22,7 @@ export class EventCreateComponent {
     if (form.invalid) {
       return;
     }
-    const event: Event = {
-      description: form.value.description,
-      startTime: form.value.startTime,
-      endTime: form.value.endTime
-    };
-    this.eventsService.addEvent(event);
+    this.eventsService.addEvent(form.value.description, form.value.startTime, form.value.endTime);
     form.resetForm();
   }
 }
