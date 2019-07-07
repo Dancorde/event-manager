@@ -1,7 +1,22 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const app = express();
+
+mongoose.connect(
+  'mongodb+srv://Dancorde:u5q2Dn0vKbNc8xif@calendar-rv7ue.mongodb.net/test?retryWrites=true&w=majority',
+  {
+    useCreateIndex: true,
+    useNewUrlParser: true
+  })
+  .then(() => {
+    console.log('Connected to database!');
+  })
+  .catch(() => {
+    console.log('Connection failed!');
+  });
+mongoose.Promise = global.Promise;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
