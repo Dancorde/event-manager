@@ -34,6 +34,10 @@ export class EventsService {
     return this.eventsUpdated.asObservable();
   }
 
+  getEvent(id: string) {
+    return this.http.get<{_id: string, description: string, startTime: string, endTime: string}>('http://localhost:3000/api/events/' + id);
+  }
+
   addEvent(description: string, startTime: string, endTime: string) {
     const event: Event = {id: null, description, startTime, endTime};
     this.http.post<{message: string, eventId: string}>('http://localhost:3000/api/events', event)
@@ -43,6 +47,24 @@ export class EventsService {
         this.events.push(event);
         this.eventsUpdated.next([...this.events]);
       });
+  }
+
+  updateEvent(id: string, description: string, startTime: string, endTime: string) {
+    const event: Event = {
+      id,
+      description,
+      startTime,
+      endTime
+    };
+    this.http.patch('http://localhost:3000/api/events/' + id, event)
+      .subscribe(response => {
+        const updatedEvents = [...this.events];
+        const oldEventIndex = updatedEvents.findIndex( e => e.id === event.id);
+        updatedEvents[oldEventIndex] = event;
+        this.events = updatedEvents;
+        this.eventsUpdated.next([...this.events]);
+      });
+
   }
 
   deleteEvent(eventId: string) {

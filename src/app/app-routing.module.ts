@@ -7,7 +7,8 @@ import { EventCreateComponent } from './events/event-create/event-create.compone
 
 const routes: Routes = [
   { path: '', component: EventListComponent },
-  { path: 'create', component: EventCreateComponent }
+  { path: 'create', component: EventCreateComponent },
+  { path: 'edit/:eventId', component: EventCreateComponent }
 ];
 
 @NgModule({

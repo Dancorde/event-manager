@@ -1,16 +1,16 @@
 <h2>Event Create Component</h2>
 <mat-card>
-  <form (submit)="onAddEvent(eventForm)" #eventForm="ngForm">
+  <form (submit)="onSaveEvent(eventForm)" #eventForm="ngForm">
     <mat-form-field>
-      <input matInput type="text" name="description" ngModel #description='ngModel' required placeholder="Description">
+      <input matInput type="text" name="description" [ngModel]="event?.description" #description='ngModel' required placeholder="Description">
       <mat-error *ngIf="description.invalid">Please enter an event description.</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="text" name="startTime" ngModel #startTime='ngModel' required placeholder="Start Time">
+      <input matInput type="text" name="startTime" [ngModel]="event?.startTime" #startTime='ngModel' required placeholder="Start Time">
       <mat-error *ngIf="startTime.invalid">Please enter a start time.</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="text" name="endTime" ngModel #endTime='ngModel' required placeholder="End Time">
+      <input matInput type="text" name="endTime" [ngModel]="event?.endTime" #endTime='ngModel' required placeholder="End Time">
       <mat-error *ngIf="endTime.invalid">Please enter an end time.</mat-error>
     </mat-form-field>
     <button mat-raised-button color="primary" type="submit">Save Event</button>
