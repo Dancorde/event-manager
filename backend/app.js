@@ -23,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Routes import
 const eventRoutes = require('./routes/event');
+const userRoutes = require('./routes/user');
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -41,6 +42,7 @@ app.use((req, res, next) => {
 
 // Routes
 app.use("/api/events", eventRoutes);
+app.use("/api/user", userRoutes);
 
 app.use((req, res, next) => {
   const error = new Error('Not found');
