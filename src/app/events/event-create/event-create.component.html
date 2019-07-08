@@ -1,6 +1,7 @@
-<h2>Event Create Component</h2>
+<h2>Event Create</h2>
 <mat-card>
-  <form (submit)="onSaveEvent(eventForm)" #eventForm="ngForm">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form (submit)="onSaveEvent(eventForm)" #eventForm="ngForm" *ngIf="!isLoading">
     <mat-form-field>
       <input matInput type="text" name="description" [ngModel]="event?.description" #description='ngModel' required placeholder="Description">
       <mat-error *ngIf="description.invalid">Please enter an event description.</mat-error>

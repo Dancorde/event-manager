@@ -6,18 +6,22 @@ import { EventsService } from '../events.service';
 
 @Component({
   selector: 'app-event-list',
-  templateUrl: './event-list.component.html'
+  templateUrl: './event-list.component.html',
+  styleUrls: ['./event-list.component.css']
 })
 export class EventListComponent implements OnInit, OnDestroy {
   events: Event[] = [];
+  isLoading = false;
   private eventsSub: Subscription;
 
   constructor(public eventsService: EventsService) {}
 
   ngOnInit() {
+    this.isLoading = true;
     this.eventsService.getEvents();
     this.eventsSub = this.eventsService.getEventUpdateListener()
       .subscribe((events: Event[]) => {
+        this.isLoading = false;
         this.events = events;
       });
   }

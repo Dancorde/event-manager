@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 import { Event } from './event.model';
 
@@ -10,7 +11,7 @@ export class EventsService {
   private events: Event[] = [];
   private eventsUpdated = new Subject<Event[]>();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   getEvents() {
     this.http.get<{message: string, events: Event[]}>('http://localhost:3000/api/events')
@@ -46,6 +47,7 @@ export class EventsService {
         event.id = id;
         this.events.push(event);
         this.eventsUpdated.next([...this.events]);
+        this.router.navigate(['/']);
       });
   }
 
@@ -63,6 +65,7 @@ export class EventsService {
         updatedEvents[oldEventIndex] = event;
         this.events = updatedEvents;
         this.eventsUpdated.next([...this.events]);
+        this.router.navigate(['/']);
       });
 
   }

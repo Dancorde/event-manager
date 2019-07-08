@@ -15,6 +15,7 @@ export class EventCreateComponent implements OnInit {
   enteredStartTime = '';
   enteredEndTime = '';
   event: Event;
+  isLoading = false;
   private mode = 'create';
   private eventId: string;
 
@@ -25,13 +26,15 @@ export class EventCreateComponent implements OnInit {
       if (paramMap.has('eventId')) {
         this.mode = 'edit';
         this.eventId = paramMap.get('eventId');
+        this.isLoading = true;
         this.eventsService.getEvent(this.eventId).subscribe(eventData => {
+          this.isLoading = false;
           this.event = {
             id: eventData._id,
             description: eventData.description,
             startTime: eventData.startTime,
             endTime: eventData.endTime
-          }
+          };
         });
       } else {
         this.mode = 'create';
@@ -44,6 +47,7 @@ export class EventCreateComponent implements OnInit {
     if (form.invalid) {
       return;
     }
+    this.isLoading = true;
     if (this.mode === 'create') {
       this.eventsService.addEvent(form.value.description, form.value.startTime, form.value.endTime);
     } else {
