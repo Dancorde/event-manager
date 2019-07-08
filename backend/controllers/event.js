@@ -22,7 +22,6 @@ exports.getEventList = (req, res, next) => {
 }
 
 exports.postEvent = (req, res, next) => {
-
   const event = new Event({
     _id: new mongoose.Types.ObjectId(),
     description: req.body.description,
@@ -34,7 +33,7 @@ exports.postEvent = (req, res, next) => {
     .then(result => {
       res.status(201).json({
         message: 'Event created',
-        createdEvent: result
+        eventId: result._id
       });
       console.log(result);
     })
@@ -44,10 +43,6 @@ exports.postEvent = (req, res, next) => {
       });
       console.log(err);
     });
-
-  // res.status(201).json({
-  //   message: 'Event added successfully'
-  // });
 }
 
 exports.getEvent = (req, res, next) => {
@@ -59,5 +54,19 @@ exports.updateEvent = (req, res, next) => {
 }
 
 exports.deleteEvent = (req, res, next) => {
+  const id = req.params.eventId;
 
+  Event.deleteOne({ _id: id })
+    .exec()
+    .then(result => {
+      res.status(200).json({
+        message: "Event deleted!"
+      });
+    })
+    .catch(err => {
+      res.status(500).json({
+        error: err
+      });
+      console.log(err);
+    });
 }

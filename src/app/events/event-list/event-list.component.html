@@ -1,5 +1,13 @@
-<p *ngFor="let event of events">
-  <span>{{ event.description }} </span>
-  <span>{{ event.startTime }} </span>
-  <span>{{ event.endTime }}</span>
-</p>
+<mat-accordion multi="true">
+  <mat-expansion-panel *ngFor="let event of events">
+  <mat-expansion-panel-header>
+    {{ event.description }}
+  </mat-expansion-panel-header>
+  <p>Start: {{ event.startTime }}</p>
+  <p>End: {{ event.endTime }}</p>
+  <mat-action-row>
+    <button mat-button color="primary">EDIT</button>
+    <button mat-button color="warn" (click)="onDelete(event.id)">DELETE</button>
+  </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>

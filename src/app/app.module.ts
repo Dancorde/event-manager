@@ -2,10 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from "@angular/common/http";
-import { MatInputModule,
+import { HttpClientModule } from '@angular/common/http';
+import {
+  MatInputModule,
   MatCardModule,
-  MatButtonModule
+  MatButtonModule,
+  MatExpansionModule
 } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -27,6 +29,7 @@ import { EventListComponent } from './events/event-list/event-list.component';
     MatInputModule,
     MatCardModule,
     MatButtonModule,
+    MatExpansionModule,
     HttpClientModule
   ],
   providers: [],

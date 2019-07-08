@@ -5,7 +5,19 @@
         <app-event-create></app-event-create>
       </div>
       <div class="col-md-6">
-        <app-event-list></app-event-list>
+        <mat-accordion multi="true">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              Calendar
+            </mat-expansion-panel-header>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              Events
+            </mat-expansion-panel-header>
+            <app-event-list></app-event-list>
+          </mat-expansion-panel>
+        </mat-accordion>
       </div>
     </div>
   </div>
