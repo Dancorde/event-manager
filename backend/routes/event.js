@@ -4,7 +4,7 @@ const router = express.Router();
 const eventController = require("../controllers/event");
 const checkAuth = require("../middlewares/check-auth")
 
-router.get("/", eventController.getEventList);
+router.get("/", checkAuth, eventController.getEventList);
 
 router.post("/", checkAuth, eventController.postEvent);
 
