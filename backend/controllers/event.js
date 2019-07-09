@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Event = require('../models/event');
 
 exports.getEventList = (req, res, next) => {
-  Event.find()
+  Event.find({creator: req.userData.userId})
     .select('_id description startTime endTime')
     .exec()
     .then(events => {
@@ -26,7 +26,8 @@ exports.postEvent = (req, res, next) => {
     _id: new mongoose.Types.ObjectId(),
     description: req.body.description,
     startTime: req.body.startTime,
-    endTime: req.body.endTime
+    endTime: req.body.endTime,
+    creator: req.userData.userId
   });
 
   event.save()
@@ -72,7 +73,7 @@ exports.getEvent = (req, res, next) => {
 exports.updateEvent = (req, res, next) => {
   const id = req.params.eventId;
 
-  Event.updateOne({ _id: id }, {
+  Event.updateOne({ _id: id, creator: req.userData.userId }, {
     $set: {
       description: req.body.description,
       startTime: req.body.startTime,
@@ -96,7 +97,7 @@ exports.updateEvent = (req, res, next) => {
 exports.deleteEvent = (req, res, next) => {
   const id = req.params.eventId;
 
-  Event.deleteOne({ _id: id })
+  Event.deleteOne({ _id: id, creator: req.userData.userId })
     .exec()
     .then(result => {
       res.status(200).json({

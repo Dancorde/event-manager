@@ -22,7 +22,8 @@ export class EventsService {
           description: event.description,
           startTime: event.startTime,
           endTime: event.endTime,
-          id: event._id
+          id: event._id,
+          creator: event.creator
         };
       });
     }))
@@ -37,7 +38,13 @@ export class EventsService {
   }
 
   getEvent(id: string) {
-    return this.http.get<{_id: string, description: string, startTime: string, endTime: string}>('http://localhost:3000/api/events/' + id);
+    return this.http.get<{
+      _id: string;
+      description: string;
+      startTime: string;
+      endTime: string;
+      creator: string;
+    }>('http://localhost:3000/api/events/' + id);
   }
 
   addEvent(description: string, startTime: string, endTime: string) {
