@@ -15,22 +15,22 @@ export class EventsService {
 
   getEvents() {
     this.http
-    .get<{message: string, events: Event[]}>('http://localhost:3000/api/events')
-    .pipe(map((eventData) => {
-      return eventData.events.map(event => {
-        return {
-          description: event.description,
-          startTime: event.startTime,
-          endTime: event.endTime,
-          id: event._id,
-          creator: event.creator
-        };
+      .get<{ message: string, events: Event[] }>('http://localhost:3000/api/events')
+      .pipe(map((eventData) => {
+        return eventData.events.map(event => {
+          return {
+            description: event.description,
+            startTime: event.startTime,
+            endTime: event.endTime,
+            id: event._id,
+            creator: event.creator
+          };
+        });
+      }))
+      .subscribe((transformedEvents) => {
+        this.events = transformedEvents;
+        this.eventsUpdated.next([...this.events]);
       });
-    }))
-    .subscribe((transformedEvents) => {
-      this.events = transformedEvents;
-      this.eventsUpdated.next([...this.events]);
-    });
   }
 
   getEventUpdateListener() {
