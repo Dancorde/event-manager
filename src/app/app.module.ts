@@ -2,13 +2,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {
   MatInputModule,
   MatCardModule,
   MatButtonModule,
   MatExpansionModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatToolbarModule
 } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -17,10 +18,13 @@ import { EventCreateComponent } from './events/event-create/event-create.compone
 import { EventListComponent } from './events/event-list/event-list.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { AuthInterceptor } from './auth/auth-interceptor';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
     EventCreateComponent,
     EventListComponent,
     LoginComponent,
@@ -32,6 +36,7 @@ import { SignupComponent } from './auth/signup/signup.component';
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
+    MatToolbarModule,
     MatInputModule,
     MatCardModule,
     MatButtonModule,
@@ -39,7 +44,9 @@ import { SignupComponent } from './auth/signup/signup.component';
     MatProgressSpinnerModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
