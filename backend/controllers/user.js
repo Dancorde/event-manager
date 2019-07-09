@@ -10,7 +10,7 @@ exports.postSignup = (req, res, next) => {
     .then(user => {
       if (user && user.length >= 1) {
         return res.status(409).json({
-          message: 'E-mail already exists'
+          message: 'E-mail already exists!'
         });
       } else {
         bcrypt.hash(req.body.password, 12, (err, hash) => {
@@ -33,7 +33,7 @@ exports.postSignup = (req, res, next) => {
               })
               .catch(err => {
                 res.status(500).json({
-                  error: err
+                  message: "Invalid authentication credentials!"
                 });
                 console.log(err);
               });
@@ -49,7 +49,7 @@ exports.postLogin = (req, res, next) => {
     .then(user => {
       if (!user) {
         return res.status(401).json({
-          message: "Authentication failed"
+          message: "Authentication failed!"
         });
       }
       fetchedUser = user;
@@ -58,7 +58,7 @@ exports.postLogin = (req, res, next) => {
     .then(result => {
       if (!result) {
         return res.status(401).json({
-          message: "Authentication failed"
+          message: "Authentication failed!"
         });
       }
       const token = jwt.sign(

@@ -27,6 +27,7 @@ export class EventListComponent implements OnInit, OnDestroy {
   }
 
   onDelete(eventId: string) {
+    this.isLoading = true;
     this.eventsService.deleteEvent(eventId);
   }
 

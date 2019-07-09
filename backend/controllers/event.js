@@ -16,7 +16,7 @@ exports.getEventList = (req, res, next) => {
     .catch(err => {
       console.log(err);
       res.status(500).json({
-        error: err
+        message: "Fetching events failed!"
       });
     });
 }
@@ -40,7 +40,7 @@ exports.postEvent = (req, res, next) => {
     })
     .catch(err => {
       res.status(500).json({
-        error: err
+        message: "Creating an event failed!"
       });
       console.log(err);
     });
@@ -65,7 +65,7 @@ exports.getEvent = (req, res, next) => {
     .catch(err => {
       console.log(err);
       res.status(500).json({
-        error: err
+        message: "Fetching event failed!"
       });
     });
 }
@@ -88,7 +88,7 @@ exports.updateEvent = (req, res, next) => {
     })
     .catch(err => {
       res.status(500).json({
-        error: err
+        message: "Couldn't update event!"
       });
       console.log(err);
     });
@@ -106,7 +106,7 @@ exports.deleteEvent = (req, res, next) => {
     })
     .catch(err => {
       res.status(500).json({
-        error: err
+        message: "Fetching event failed!"
       });
       console.log(err);
     });
