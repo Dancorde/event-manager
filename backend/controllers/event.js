@@ -30,20 +30,31 @@ exports.postEvent = (req, res, next) => {
     creator: req.userData.userId
   });
 
-  event.save()
-    .then(result => {
-      res.status(201).json({
-        message: 'Event created',
-        eventId: result._id
-      });
-      console.log(result);
+  Event.find({ startTime: { $gte: event.startTime }, endTime: { $lte: event.startTime } })
+    .then(events => {
+      if (events.length > 0) {
+        res.status(500).json({
+          message: "Can't create event. The event overlays another one!"
+        });
+      } else {
+        event.save()
+          .then(result => {
+            res.status(201).json({
+              message: 'Event created',
+              eventId: result._id
+            });
+            console.log(result);
+          })
+          .catch(err => {
+            res.status(500).json({
+              message: "Creating an event failed!"
+            });
+            console.log(err);
+          });
+      }
     })
-    .catch(err => {
-      res.status(500).json({
-        message: "Creating an event failed!"
-      });
-      console.log(err);
-    });
+
+
 }
 
 exports.getEvent = (req, res, next) => {
