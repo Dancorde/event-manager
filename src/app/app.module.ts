@@ -23,6 +23,8 @@ import { AuthInterceptor } from './auth/auth-interceptor';
 import { ErrorInterceptor } from './error-interceptor';
 import { HeaderComponent } from './header/header.component';
 import { ErrorComponent } from './error/error.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { CalendarComponent } from './calendar/calendar.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { ErrorComponent } from './error/error.component';
     EventListComponent,
     LoginComponent,
     SignupComponent,
-    ErrorComponent
+    ErrorComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +50,8 @@ import { ErrorComponent } from './error/error.component';
     MatExpansionModule,
     MatProgressSpinnerModule,
     HttpClientModule,
-    MatDialogModule
+    MatDialogModule,
+    FullCalendarModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

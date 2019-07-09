@@ -7,3 +7,6 @@ mat-spinner {
   margin: auto;
 }
 
+mat-card-header {
+  justify-content: center;
+}

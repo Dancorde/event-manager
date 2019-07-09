@@ -1,14 +1,21 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
-<mat-accordion multi="true" *ngIf="!isLoading">
-  <mat-expansion-panel *ngFor="let event of events">
-  <mat-expansion-panel-header>
-    {{ event.description }}
-  </mat-expansion-panel-header>
-  <p>Start: {{ event.startTime }}</p>
-  <p>End: {{ event.endTime }}</p>
-  <mat-action-row>
-    <a mat-button color="primary" [routerLink]="['/edit', event.id]" routerLinkActive="router-link-active" >EDIT</a>
-    <button mat-button color="warn" (click)="onDelete(event.id)">DELETE</button>
-  </mat-action-row>
-  </mat-expansion-panel>
-</mat-accordion>
+<div class="row">
+  <div class="col-md-5">
+    <mat-accordion multi="true" *ngIf="!isLoading">
+      <mat-expansion-panel *ngFor="let event of events">
+      <mat-expansion-panel-header>
+        {{ event.description }}
+      </mat-expansion-panel-header>
+      <p>Start: {{ event.startTime }}</p>
+      <p>End: {{ event.endTime }}</p>
+      <mat-action-row>
+        <a mat-button color="primary" [routerLink]="['/edit', event.id]" routerLinkActive="router-link-active" >EDIT</a>
+        <button mat-button color="warn" (click)="onDelete(event.id)">DELETE</button>
+      </mat-action-row>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <div class="col-md-7">
+    <app-calendar *ngIf="!isLoading"></app-calendar>
+  </div>
+</div>
