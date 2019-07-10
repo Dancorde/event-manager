@@ -85,8 +85,8 @@ exports.updateEvent = (req, res, next) => {
   const id = req.params.eventId;
 
   Event.find({$and: [
-    { endTime: { $gte: req.body.startTime }, startTime: { $lte: req.body.endTime } },
-    { _id: { $ne: id } }
+    { _id: { $ne: id } },
+    { endTime: { $gte: req.body.startTime }, startTime: { $lte: req.body.endTime } }
   ]})
     .then(events => {
       if (events.length > 0) {

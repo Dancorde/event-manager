@@ -8,14 +8,14 @@ import { Event } from './event.model';
 
 @Injectable({providedIn: 'root'})
 export class EventsService {
-  private events: Event[] = [];
-  private eventsUpdated = new Subject<Event[]>();
+  private events: any[] = [];
+  private eventsUpdated = new Subject<any[]>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
   getEvents() {
     this.http
-      .get<{ message: string, events: Event[] }>('http://localhost:3000/api/events')
+      .get<{ message: string, events: any[] }>('http://localhost:3000/api/events')
       .pipe(map((eventData) => {
         return eventData.events.map(event => {
           return {
@@ -48,7 +48,7 @@ export class EventsService {
   }
 
   addEvent(description: string, startTime: string, endTime: string) {
-    const event: Event = {id: null, description, startTime, endTime};
+    const event: any = {id: null, description, startTime, endTime};
     this.http.post<{message: string, eventId: string}>('http://localhost:3000/api/events', event)
       .subscribe((responseData) => {
         const id = responseData.eventId;
@@ -62,7 +62,7 @@ export class EventsService {
   }
 
   updateEvent(id: string, description: string, startTime: string, endTime: string) {
-    const event: Event = {
+    const event: any = {
       id,
       description,
       startTime,
