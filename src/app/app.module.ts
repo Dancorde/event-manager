@@ -10,7 +10,9 @@ import {
   MatExpansionModule,
   MatProgressSpinnerModule,
   MatToolbarModule,
-  MatDialogModule
+  MatDialogModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -51,7 +53,9 @@ import { CalendarComponent } from './calendar/calendar.component';
     MatProgressSpinnerModule,
     HttpClientModule,
     MatDialogModule,
-    FullCalendarModule
+    FullCalendarModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

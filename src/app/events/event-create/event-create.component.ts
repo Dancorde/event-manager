@@ -14,6 +14,7 @@ export class EventCreateComponent implements OnInit {
   enteredDescription = '';
   enteredStartTime = '';
   enteredEndTime = '';
+  enteredDate = '';
   event: Event;
   isLoading = false;
   private mode = 'create';
@@ -52,6 +53,9 @@ export class EventCreateComponent implements OnInit {
       this.eventsService.addEvent(form.value.description, form.value.startTime, form.value.endTime);
     } else {
       this.eventsService.updateEvent(this.eventId, form.value.description, form.value.startTime, form.value.endTime);
+      console.log(form.value.description);
+      console.log(form.value.startDate);
+
     }
     form.resetForm();
   }

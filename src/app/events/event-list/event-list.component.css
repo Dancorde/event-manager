@@ -1,3 +1,8 @@
 mat-spinner {
   margin: auto;
 }
+
+.info-text {
+  text-align: center;
+  margin: 1rem auto;
+}
