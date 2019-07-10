@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { EventsService } from '../events.service';
 import { Event } from '../event.model';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-event-create',
   templateUrl: './event-create.component.html',
   styleUrls: ['./event-create.component.css']
 })
-export class EventCreateComponent implements OnInit {
+export class EventCreateComponent implements OnInit, OnDestroy {
   enteredDescription = '';
   enteredStartTime = '';
   enteredEndTime = '';
@@ -19,10 +21,20 @@ export class EventCreateComponent implements OnInit {
   isLoading = false;
   private mode = 'create';
   private eventId: string;
+  private authStatusSub: Subscription;
 
-  constructor(public eventsService: EventsService, public route: ActivatedRoute) {}
+  constructor(
+    public eventsService: EventsService,
+    public route: ActivatedRoute,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(
+      authStatus => {
+        this.isLoading = false;
+      }
+    );
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('eventId')) {
         this.mode = 'edit';
@@ -53,10 +65,11 @@ export class EventCreateComponent implements OnInit {
       this.eventsService.addEvent(form.value.description, form.value.startTime, form.value.endTime);
     } else {
       this.eventsService.updateEvent(this.eventId, form.value.description, form.value.startTime, form.value.endTime);
-      console.log(form.value.description);
-      console.log(form.value.startDate);
-
     }
     form.resetForm();
+  }
+
+  ngOnDestroy() {
+    this.authStatusSub.unsubscribe();
   }
 }

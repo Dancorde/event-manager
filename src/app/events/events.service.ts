@@ -56,6 +56,8 @@ export class EventsService {
         this.events.push(event);
         this.eventsUpdated.next([...this.events]);
         this.router.navigate(['/']);
+      }, error => {
+        this.router.navigate(['/']);
       });
   }
 
@@ -73,6 +75,8 @@ export class EventsService {
         updatedEvents[oldEventIndex] = event;
         this.events = updatedEvents;
         this.eventsUpdated.next([...this.events]);
+        this.router.navigate(['/']);
+      }, error => {
         this.router.navigate(['/']);
       });
 
