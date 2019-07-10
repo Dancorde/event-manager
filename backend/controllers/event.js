@@ -86,10 +86,13 @@ exports.updateEvent = (req, res, next) => {
 
   Event.find({$and: [
     { _id: { $ne: id } },
+    { creator: { $eq: req.userData.userId } },
     { endTime: { $gte: req.body.startTime }, startTime: { $lte: req.body.endTime } }
   ]})
     .then(events => {
       if (events.length > 0) {
+        console.log(events);
+
         res.status(500).json({
           message: "Can't update event. The event overlays another one!"
         });
@@ -98,7 +101,8 @@ exports.updateEvent = (req, res, next) => {
           $set: {
             description: req.body.description,
             startTime: req.body.startTime,
-            endTime: req.body.endTime
+            endTime: req.body.endTime,
+            creator: req.userData.userId
           }
         })
           .exec()
