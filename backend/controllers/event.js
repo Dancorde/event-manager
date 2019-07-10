@@ -30,12 +30,8 @@ exports.postEvent = (req, res, next) => {
     creator: req.userData.userId
   });
 
-  Event.find({ $or: [
-    { startTime: { $lte: event.endtTime }},
-    {  endTime: { $gte: event.startTime }}
-  ] })
+  Event.find({ endTime: { $gte: event.startTime }, startTime: { $lte: event.endTime } })
     .then(events => {
-      console.log(event.startTime);
       if (events.length > 0) {
         res.status(500).json({
           message: "Can't create event. The event overlays another one!"
@@ -88,12 +84,10 @@ exports.getEvent = (req, res, next) => {
 exports.updateEvent = (req, res, next) => {
   const id = req.params.eventId;
 
-  Event.find({
-    $or: [
-      { startTime: { $lte: req.body.startTime } },
-      { endTime: { $gte: req.body.endTime } }
-    ]
-  })
+  Event.find({$and: [
+    { endTime: { $gte: req.body.startTime }, startTime: { $lte: req.body.endTime } },
+    { _id: { $ne: id } }
+  ]})
     .then(events => {
       if (events.length > 0) {
         res.status(500).json({
@@ -121,8 +115,6 @@ exports.updateEvent = (req, res, next) => {
           });
       }
     })
-
-
 }
 
 exports.deleteEvent = (req, res, next) => {

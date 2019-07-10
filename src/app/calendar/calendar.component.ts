@@ -14,9 +14,9 @@ import bootstrapPlugin from '@fullcalendar/bootstrap';
 export class CalendarComponent implements OnInit {
   calendarPlugins = [dayGridPlugin, timeGridPlugin, bootstrapPlugin];
   calendarHeader = {
-    left: 'title',
-    center: 'dayGridMonth,timeGridDay',
-    right: 'prev,next'
+    left: 'prev,today,next',
+    center: 'title',
+    right: 'dayGridMonth,timeGridWeek,timeGridDay'
   };
   timeZone = 'America/Sao_Paulo';
 
