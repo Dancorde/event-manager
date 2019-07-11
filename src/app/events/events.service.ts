@@ -3,8 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
-import { Event } from './event.model';
+// import { Event } from './event.model';
+
+const BACKEND_URL = environment.apiUrl + '/events/';
 
 @Injectable({providedIn: 'root'})
 export class EventsService {
@@ -15,7 +18,7 @@ export class EventsService {
 
   getEvents() {
     this.http
-      .get<{ message: string, events: any[] }>('http://localhost:3000/api/events')
+      .get<{ message: string, events: any[] }>(BACKEND_URL)
       .pipe(map((eventData) => {
         return eventData.events.map(event => {
           return {
@@ -44,12 +47,12 @@ export class EventsService {
       startTime: string;
       endTime: string;
       creator: string;
-    }>('http://localhost:3000/api/events/' + id);
+    }>(BACKEND_URL + id);
   }
 
   addEvent(description: string, startTime: string, endTime: string) {
     const event: any = {id: null, description, startTime, endTime};
-    this.http.post<{message: string, eventId: string}>('http://localhost:3000/api/events', event)
+    this.http.post<{ message: string, eventId: string }>(BACKEND_URL, event)
       .subscribe((responseData) => {
         const id = responseData.eventId;
         event.id = id;
@@ -68,7 +71,7 @@ export class EventsService {
       startTime,
       endTime
     };
-    this.http.patch('http://localhost:3000/api/events/' + id, event)
+    this.http.patch(BACKEND_URL + id, event)
       .subscribe(response => {
         const updatedEvents = [...this.events];
         const oldEventIndex = updatedEvents.findIndex( e => e.id === event.id);
@@ -83,7 +86,7 @@ export class EventsService {
   }
 
   deleteEvent(eventId: string) {
-    this.http.delete('http://localhost:3000/api/events/' + eventId)
+    this.http.delete(BACKEND_URL + eventId)
       .subscribe(() => {
         const updatedEvents = this.events.filter(event => event.id !== eventId);
         this.events = updatedEvents;

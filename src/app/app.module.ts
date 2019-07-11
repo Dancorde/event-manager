@@ -12,7 +12,6 @@ import { ErrorComponent } from './error/error.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { AngularMaterialModule } from './angular-material.module';
 import { EventsModule } from './events/event.module';
-import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +27,6 @@ import { AuthModule } from './auth/auth.module';
     FullCalendarModule,
     AngularMaterialModule,
     EventsModule,
-    AuthModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

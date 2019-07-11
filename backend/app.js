@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const app = express();
 
 mongoose.connect(
-  'mongodb+srv://Dancorde:u5q2Dn0vKbNc8xif@calendar-rv7ue.mongodb.net/test',
+  'mongodb+srv://Dancorde:' + process.env.MONGO_ATLAS_PW + '@calendar-rv7ue.mongodb.net/test',
   {
     useCreateIndex: true,
     useNewUrlParser: true
@@ -42,19 +42,19 @@ app.use((req, res, next) => {
 app.use("/api/events", eventRoutes);
 app.use("/api/user", userRoutes);
 
-// app.use((req, res, next) => {
-//   const error = new Error('Not found');
-//   error.status = 404;
-//   next(error);
-// });
+app.use((req, res, next) => {
+  const error = new Error('Not found');
+  error.status = 404;
+  next(error);
+});
 
-// app.use((error, req, res, next) => {
-//   res.status(error.status || 500);
-//   res.json({
-//     error: {
-//       message: error.message
-//     }
-//   });
-// });
+app.use((error, req, res, next) => {
+  res.status(error.status || 500);
+  res.json({
+    error: {
+      message: error.message
+    }
+  });
+});
 
 module.exports = app;
