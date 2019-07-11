@@ -46,7 +46,7 @@ app.use((req, res, next) => {
 app.use("/api/events", eventRoutes);
 app.use("/api/user", userRoutes);
 app.use((req, res, next) => {
-  res.sendFile(path.join('${__dirname}/dist/${appName}/index.html'));
+  res.sendFile('${__dirname}/dist/${appName}/index.html');
 });
 
 app.use((req, res, next) => {
