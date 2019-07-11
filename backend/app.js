@@ -2,7 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
+const appName = process.env.npm_package_name;
+
 const app = express();
+
+app.use(express.static('${__dirname}/dist/${appName}'));
 
 mongoose.connect(
   'mongodb+srv://Dancorde:' + process.env.MONGO_ATLAS_PW + '@calendar-rv7ue.mongodb.net/test',
@@ -41,6 +45,9 @@ app.use((req, res, next) => {
 // Routes
 app.use("/api/events", eventRoutes);
 app.use("/api/user", userRoutes);
+app.use((req, res, next) => {
+  res.sendFile(path.join('${__dirname}/dist/${appName}/index.html'));
+});
 
 app.use((req, res, next) => {
   const error = new Error('Not found');
