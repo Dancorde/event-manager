@@ -8,6 +8,8 @@
 
 # dependencies
 /node_modules
+/backend/node_modules
+/dist
 
 # profiling files
 chrome-profiler-events.json
@@ -39,7 +41,11 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
+/backend/coverage
 
 # System Files
 .DS_Store
 Thumbs.db
+
+.env
+.env.test

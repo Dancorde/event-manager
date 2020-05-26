@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-const eventController = require("../controllers/event");
-const checkAuth = require("../middlewares/check-auth")
+const checkAuth = require("../middlewares/check-auth");
+const eventController = require("./events.controller");
 
-router.get("/", checkAuth, eventController.getEventList);
+router.get("/", checkAuth, eventController.getEvents);
 
 router.post("/", checkAuth, eventController.postEvent);
 

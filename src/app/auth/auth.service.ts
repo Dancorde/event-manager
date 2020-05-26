@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { environment } from '../../environments/environment';
 
-const BACKEND_URL = environment.apiUrl + '/user/';
+const BACKEND_URL = environment.apiUrl + '/users';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -81,7 +81,7 @@ export class AuthService {
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
     this.clearAuthData();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/auth/login']);
   }
 
   private setAuthTimer(duration: number) {
